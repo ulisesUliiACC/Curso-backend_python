@@ -25,19 +25,47 @@ async def usersJson():
 async def users():
     return User_list
 
+
 #operacion  con path
 @app.get("/user/{id}")
 async def user(id: int):
-   return search_user
+    return search_user(id)
 
 #operacion con query    
-@app.get("/userquery/")
+@app.get("/user/")
 async def user(id: int):
     return search_user(id)
 
+
+@app.post("/user/")
+async def user(user: User):
+    if type(search_user(user.id)) == user:
+        return {"error": "El usuario existe :("} 
+    else:
+            User_list.append(user)
+
+@app.put("/user/")
+async def user(user: User):
+    found = False
+
+    for index, saved_user in enumerate(User_list):
+        if saved_user.id == user.id:
+            User_list[index] = user
+            found = True
+    if not found:
+        return { "error":"No se a actulizado"}
+
+
+
 def search_user(id: int):
-    user = filter(lambda user: user.id == id, User_list)
+    users = filter(lambda user: user.id == id, User_list)
     try:
-        return list(user)[0]
+        return list(users)[0]
     except:
-      return {"error": "No se encontro este usuario :("} 
+        return {"error": "No se encontro este usuario :("} 
+    
+    
+   
+        
+
+
