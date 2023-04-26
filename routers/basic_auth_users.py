@@ -27,7 +27,7 @@ users_db = {
     "password":"123456789"
 
     },
-     "ulises2":{
+    "ulises2":{
     "username":  "ulii-uwu2",
     "full_name": " ulises",
     "email": "ulisesuliiuwu@gmail.com",
@@ -64,5 +64,6 @@ async def login(form: OAuth2PasswordRequestForm = Depends()):
 
 @app.get("/users/me")
 async def me(user: User = Depends(current_user)):
-    
     return user
+
+
